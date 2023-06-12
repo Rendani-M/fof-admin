@@ -1,6 +1,5 @@
 import "./listList.css";
 import { DataGrid } from "@mui/x-data-grid";
-import { Link } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { ListContext } from "../../context/listContext/ListContext";
 import { deleteList, getLists } from "../../context/listContext/apiCalls";

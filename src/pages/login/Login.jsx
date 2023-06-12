@@ -23,7 +23,7 @@ export default function Login() {
   };
 
   return (
-    <div className="login">
+    <div className="login"> 
       <form className="loginForm">
         <input
           type="text"

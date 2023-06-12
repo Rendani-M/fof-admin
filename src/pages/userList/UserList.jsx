@@ -1,12 +1,9 @@
 import "./userList.css";
 import { DataGrid } from "@mui/x-data-grid";
-import { DeleteOutline } from "@mui/icons-material";
-import { userRows } from "../../dummyData";
 import { useEffect, useState } from "react";
 import { makeRequest } from "../../axios";
 
 export default function UserList() {
-  const [data, setData] = useState(userRows);
   const [newUsers, setNewUsers] = useState([]);
   
 
@@ -31,11 +28,10 @@ export default function UserList() {
   }, []);
 
   // console.log('users',newUsers)
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
-  };
+  // const handleDelete = (id) => {
+  //   setData(data.filter((item) => item.id !== id));
+  // };
  
-  let idCount = 0;
   const columns = [
     {
       field: "id",

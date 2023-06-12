@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import "./list.css";
 
-export default function List() {
+export default function List() { 
   const location = useLocation();
   const list = location.state.list;
   return (

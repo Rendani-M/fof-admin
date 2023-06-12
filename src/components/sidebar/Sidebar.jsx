@@ -1,5 +1,5 @@
 import "./sidebar.css";
-import { AddToQueue, ArrowCircleLeft, LineStyle, List, MailOutline, PermIdentity, PlayCircleOutline, QueuePlayNext, Report, Timeline, TrendingUp, WorkOutline } from "@mui/icons-material";
+import { AddToQueue, ArrowCircleLeft, LineStyle, List, PermIdentity, PlayCircleOutline, QueuePlayNext, Report } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../context/authContext/apiCalls";
 import { AuthContext } from "../../context/authContext/AuthContext";
@@ -82,7 +82,7 @@ export default function Sidebar() {
                 Add List
               </li>
             </Link>
-            <li className="sidebarListItem" onClick={()=>{}}>
+            <li className="sidebarListItem" onClick={()=>{window.location.href = "https://rendi-portfolio-neflixclone.netlify.app/"}}>
               <ArrowCircleLeft className="sidebarIcon" />
               Neflix App
             </li>

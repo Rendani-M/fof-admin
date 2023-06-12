@@ -19,7 +19,7 @@ export default function WidgetLg() {
             <td className="widgetLgUser">
               <img
                 src="https://images.pexels.com/photos/4172933/pexels-photo-4172933.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                alt=""
+                alt="profile"
                 className="widgetLgImg"
               />
               <span className="widgetLgName">Susan Carol</span>

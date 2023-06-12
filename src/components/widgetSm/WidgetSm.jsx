@@ -1,5 +1,4 @@
 import "./widgetSm.css";
-import { Visibility } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { makeRequest } from "../../axios";
 import { Box } from "@mui/material";
@@ -32,14 +31,16 @@ export default function WidgetSm() {
       <ul className="widgetSmList">
         {newUsers?.map((user) => (
           <li className="widgetSmListItem">
-            <img
-              src={
-                user?.profilePic ||
-                "https://pbs.twimg.com/media/D8tCa48VsAA4lxn.jpg"
-              }
-              alt=""
-              className="widgetSmImg"
-            />
+            <div className="imgContainer">
+              <img
+                src={
+                  user?.profilePic ||
+                  "https://pbs.twimg.com/media/D8tCa48VsAA4lxn.jpg"
+                }
+                alt=""
+                className="widgetSmImg"
+              />
+            </div>
             <div className="widgetSmUser">
               <span className="widgetSmUsername">{user?.username}</span>
             </div>

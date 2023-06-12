@@ -1,6 +1,5 @@
 import Sidebar from "./components/sidebar/Sidebar";
 import Topbar from "./components/topbar/Topbar";
-import "./app.css";
 import Home from "./pages/home/Home";
 import {
   RouterProvider,
@@ -24,7 +23,7 @@ import Movie from "./pages/movie/Movie";
 
 function App() {
   const { user } = useContext(AuthContext);
-  const Layout = () => {
+  const Layout = () => { 
     return (
       <>
         <Topbar />

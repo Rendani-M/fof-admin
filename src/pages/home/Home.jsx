@@ -1,19 +1,18 @@
-import { ArrowDownward, ArrowUpward, Height } from "@mui/icons-material";
 import FeaturedInfo from "../../components/featuredInfo/FeaturedInfo";
 import "./home.css";
-// import { userData } from "../../dummyData";
 import WidgetSm from "../../components/widgetSm/WidgetSm";
 import WidgetLg from "../../components/widgetLg/WidgetLg";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect,  useState } from "react";
 import { makeRequest } from "../../axios";
 import { getStorage, ref, listAll, getMetadata } from 'firebase/storage';
 import app from "../../firebase";
-import { Box, CircularProgress, LinearProgress, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, Typography} from "@mui/material";
+import { Box, CircularProgress, LinearProgress, Stack, Typography} from "@mui/material";
+import { useCallback } from "react";
 
 export default function Home() {
   const [totalSizeInGB, setTotalSizeInGB] = useState(null);
-  const [remainingStorageInMB, setRemainingStorageInMB] = useState(null);
-  const [remainingStorageInGB, setRemainingStorageInGB] = useState(null);
+  // const [remainingStorageInMB, setRemainingStorageInMB] = useState(null);
+  // const [remainingStorageInGB, setRemainingStorageInGB] = useState(null);
   const [GBDownloadsLimit, setGBDownloadsLimit] = useState(1);
   const [uploadOperations, setUploadOperations] = useState(0);
   const [uploadOperationsPercentage, setUploadOperationsPercentage] = useState(0);
@@ -24,9 +23,7 @@ export default function Home() {
   const [DBkB, setDBkB] = useState(0);
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
   // const projectKey = process.env.REACT_APP_PROJECT_KEY;
-  useEffect(() => {
-    display();
-  }, [remainingStorageInMB]);
+  
 
   useEffect(() => {
     const fetchOperations = async () => {
@@ -54,7 +51,7 @@ export default function Home() {
     };
   
     fetchOperations();
-  }, [fetchedData]);  
+  }, [fetchedData, uploadOperations]);  
 
   function CircularProgressWithLabel(props) {
     return (
@@ -156,7 +153,7 @@ export default function Home() {
   };
 
   // Usage
-  const display = async () => {
+  const display = useCallback(async () => {
     try {
       const totalSizeInBytes = await calculateTotalFileSize();
       
@@ -191,8 +188,8 @@ export default function Home() {
       downloadPercentage? setDownloadOperations(downloadPercentage): setDownloadOperations(0);
       
       setTotalSizeInGB(totalSizeIn_GB.toFixed(2));
-      setRemainingStorageInMB(remainingStorageIn_MB);
-      setRemainingStorageInGB(remainingStorageIn_GB);
+      // setRemainingStorageInMB(remainingStorageIn_MB);
+      // setRemainingStorageInGB(remainingStorageIn_GB);
       setProgress(((totalSizeIn_GB.toFixed(2)/(totalStorageLimit / (1024 * 1024 * 1024)).toFixed(2)))*100);
       // Make the HTTP request using Axios
       
@@ -200,7 +197,11 @@ export default function Home() {
     } catch (error) {
       console.log("Error in display function:", error);
     }
-  };
+  }, [downloadOperations,uploadOperations,uploadOperationsPercentage]);
+
+  useEffect(() => {
+    display();
+  }, [display]);
 
   return (
     <div className="home">

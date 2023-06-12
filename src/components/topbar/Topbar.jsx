@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
 import "./topbar.css";
-import { Inbox, Language, Mail, Menu, NotificationsNone, Settings } from "@mui/icons-material";
+import { Language, Menu, NotificationsNone, Settings } from "@mui/icons-material";
 import { AuthContext } from "../../context/authContext/AuthContext";
-import { Box, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, Typography } from "@mui/material";
+import { Box, Drawer, IconButton, Stack, Typography } from "@mui/material";
 import Sidebar from "../sidebar/Sidebar";
 
 export default function Topbar() {
-  const { user, isFetching, dispatch } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [state, setState] = useState({
     left: false
   });
@@ -80,7 +80,8 @@ export default function Topbar() {
           <img  src={
                 user?.profilePic ||
                 "https://www.nicepng.com/png/detail/202-2024687_profile-icon-for-the-politics-category-profile-icon.png"
-              }  
+              } 
+              alt={`${user?.name}'s profile`} 
               className="topAvatar" />
         </div>
       </div>

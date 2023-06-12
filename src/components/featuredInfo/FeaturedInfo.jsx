@@ -1,7 +1,5 @@
-import { ArrowDownward, ArrowUpward } from "@mui/icons-material";
 import "./featuredInfo.css";
 import { Box, CircularProgress, Typography } from "@mui/material";
-import { useState } from "react";
 
 export default function FeaturedInfo({progress, title, date, data}) {
   

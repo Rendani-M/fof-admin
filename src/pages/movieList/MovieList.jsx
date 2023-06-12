@@ -1,6 +1,5 @@
 import "./movieList.css";
 import { DataGrid } from "@mui/x-data-grid";
-// import { DeleteOutline } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { MovieContext } from "../../context/movieContext/MovieContext";
@@ -11,7 +10,7 @@ export default function MovieList() {
   const { movies, dispatch } = useContext(MovieContext);
 
   useEffect(() => {
-    getMovies(dispatch);
+    getMovies(dispatch); 
   }, [dispatch]);
 
   const handleDelete = (id) => {

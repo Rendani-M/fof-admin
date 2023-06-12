@@ -19,11 +19,10 @@ export default function NewMovie() {
   const [uploaded, setUploaded] = useState(0);
   const [allInputsPresent, setAllInputsPresent] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const [totalUploaded, setTotalUploaded] = useState(0);
+  // const [totalUploaded, setTotalUploaded] = useState(0);
   const [progress, setProgress] = useState(0);
   const [uploadCount, setUploadCount] = useState(0);
   const [fetchedData, setFetchedData] = useState(false);
-  const [updatedCountDone, setUpdatedCountDone] = useState(false);
   const { user } = useContext(AuthContext);
 
   const { dispatch } = useContext(MovieContext);
@@ -40,10 +39,10 @@ export default function NewMovie() {
   }, [img, imgTitle, imgSm, trailer, video, movie]);
 
   useEffect(() => {
-    const items = [img, imgTitle, imgSm, trailer, video];
-    const countUploaded = items.filter((item) => item !== null).length;
-    setTotalUploaded(countUploaded);
-  }, [img, imgTitle, imgSm, trailer, video]);
+    // const items = [img, imgTitle, imgSm, trailer, video];
+    // const countUploaded = items.filter((item) => item !== null).length;
+    // setTotalUploaded(countUploaded);
+  }, [img, imgTitle, imgSm, trailer, video]); 
 
   //getting the data Operations 
   useEffect(() => {
@@ -69,7 +68,7 @@ export default function NewMovie() {
     };
   
     fetchOperations();
-  }, [fetchedData]);
+  }, [fetchedData, uploadCount]);
   // 
   
   const dataOperations= async()=>{
@@ -142,7 +141,7 @@ export default function NewMovie() {
       );
     });
   };
-console.log("Data Operations",uploadCount);
+  
   const handleUpload = (e) => {
     e.preventDefault();
 

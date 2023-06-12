@@ -3,17 +3,18 @@ import "./movie.css";
 import { Publish } from "@mui/icons-material";
 import { MovieContext } from "../../context/movieContext/MovieContext";
 import { useContext, useEffect, useState } from "react";
-import { getMovie, updateMovie } from "../../context/movieContext/apiCalls";
+import { updateMovie } from "../../context/movieContext/apiCalls";
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import app from "../../firebase";
 import { makeRequest } from "../../axios";
+import { useCallback } from "react";
 
 
 export default function Movie() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const [update, setUpdate] = useState(false);
-  const [imgPerc, setImgPerc] = useState(0);
+  // const [imgPerc, setImgPerc] = useState(0);
   const [uploadCount, setUploadCount] = useState(0);
   const { dispatch } = useContext(MovieContext);
   const [inputs, setInputs] = useState({
@@ -55,8 +56,8 @@ export default function Movie() {
     };
   
     fetchOperations();
-  }, [movieId, dispatch]);
-  console.log("Data Operations",uploadCount);
+  }, [movieId, dispatch, uploadCount]);
+  // console.log("Data Operations",uploadCount);
   
   //initialise the inputs
   useEffect(() => {
@@ -76,7 +77,7 @@ export default function Movie() {
     setUploadCount(uploadCount + 1);
   };
 
-  const dataOperations= async()=>{
+  const dataOperations= useCallback(async()=>{
     await makeRequest.post("/dataOperations", uploadCount, {
       headers: {
         token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
@@ -86,10 +87,10 @@ export default function Movie() {
         alert(error.response.data.message); // display the custom message in an alert box
         console.log("error",error)
     });
-  }
+  }, [uploadCount]);
 
   //send the updated info to the api
-  const handleUpdate = async (e) => {
+  const handleUpdate = useCallback(async (e) => {
     try {
       
       let updatedInputs = {
@@ -136,7 +137,7 @@ export default function Movie() {
       console.log(error);
       alert("Failed to update movie.");
     }
-  };
+  },[inputs, dataOperations,dispatch,movie._id,movie.img,movie.trailer,movie.video]);
 
   // console.log("movie: ", movie)
   const handleChange = (e) => {
@@ -158,7 +159,7 @@ export default function Movie() {
         (snapshot) => {
           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log(`Upload is ${progress}% done for ${field}`);
-          setImgPerc(Math.round(progress));
+          // setImgPerc(Math.round(progress));
           switch (snapshot.state) {
             case 'paused':
               console.log('Upload is paused');
@@ -197,7 +198,7 @@ export default function Movie() {
     if(update){
       handleUpdate();
     }
-  }, [inputs, update]);
+  }, [inputs, update, handleUpdate]);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
