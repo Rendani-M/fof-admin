@@ -13,7 +13,7 @@ export const login = async (user, dispatch) => {
 
 export const logout = async (dispatch) => {
   try {
-    const res = await makeRequest.post("auth/logout");
+    // const res = await makeRequest.post("auth/logout");
     dispatch(logoutAction());
   } catch (err) {
     dispatch(loginFailure());
