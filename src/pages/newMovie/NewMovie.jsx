@@ -24,6 +24,9 @@ export default function NewMovie() {
   const [uploadCount, setUploadCount] = useState(0);
   const [fetchedData, setFetchedData] = useState(false);
   const { user } = useContext(AuthContext);
+  const [firebaseStorageCapacity, setFirebaseStorageCapacity] = useState(null);
+  const [firebaseUploadCapacity, setFirebaseUploadCapacity] = useState(null);
+  const [mongoDBCapacity, setMongoDBCapacity] = useState(null);
 
   const { dispatch } = useContext(MovieContext);
   // Add an effect to update the allFilesPresent state whenever one of the file inputs changes
@@ -43,6 +46,29 @@ export default function NewMovie() {
     // const countUploaded = items.filter((item) => item !== null).length;
     // setTotalUploaded(countUploaded);
   }, [img, imgTitle, imgSm, trailer, video]); 
+
+  useEffect(() => {
+    const fetchOperations = async () => {
+      try {
+        
+        // if(fetchedData===false){
+          const resStorageSize = await makeRequest.get("/dataOperations/find"); 
+          const resDBSize = await makeRequest.get("/dataOperations/mongoDBStorageSize"); 
+          //setting data operation variables
+          setFirebaseStorageCapacity((resStorageSize.data.fileSize/5)*100); //Measured in GB
+          setFirebaseUploadCapacity((resStorageSize.data.upload/20000)*100);
+          
+          //setting DBstorage
+          //max storage size is 512Mb*1024= 524288KB
+          setMongoDBCapacity((resDBSize.data.storageSize/524288)*100);
+          
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    fetchOperations();
+  }, [mongoDBCapacity, firebaseStorageCapacity, firebaseUploadCapacity]);
 
   //getting the data Operations 
   useEffect(() => {
@@ -145,13 +171,19 @@ export default function NewMovie() {
   const handleUpload = (e) => {
     e.preventDefault();
 
-    upload([
-      { file: img, label: "img" },
-      { file: imgTitle, label: "imgTitle" },
-      { file: imgSm, label: "imgSm" },
-      { file: trailer, label: "trailer" },
-      { file: video, label: "video" },
-    ]);
+    //if the storage or upload capacity is above 97%, or if the DB is 99% full stop any uploading
+    if(firebaseStorageCapacity < 97 || firebaseUploadCapacity < 97 || mongoDBCapacity < 99){
+      upload([
+        { file: img, label: "img" },
+        { file: imgTitle, label: "imgTitle" },
+        { file: imgSm, label: "imgSm" },
+        { file: trailer, label: "trailer" },
+        { file: video, label: "video" },
+      ]);
+    }else{
+      alert('Storage or Database Capacity Reached! Please delete movies to upload');
+      window.location.reload();
+    }
   };
 
   const handleSubmit = async(e) => {

@@ -5,6 +5,7 @@ import { MovieContext } from "../../context/movieContext/MovieContext";
 import { ListContext } from "../../context/listContext/ListContext";
 import { createList } from "../../context/listContext/apiCalls";
 import { useNavigate } from "react-router-dom";
+import { makeRequest } from "../../axios";
 
 export default function NewList() {
   const [list, setList] = useState(null);
@@ -12,10 +13,31 @@ export default function NewList() {
 
   const { dispatch } = useContext(ListContext);
   const { movies, dispatch: dispatchMovie } = useContext(MovieContext);
+  const [mongoDBCapacity, setMongoDBCapacity] = useState(null);
 
   useEffect(() => {
     getMovies(dispatchMovie);
   }, [dispatchMovie]);
+
+  useEffect(() => {
+    const fetchOperations = async () => {
+      try {
+        
+          const resDBSize = await makeRequest.get("/dataOperations/mongoDBStorageSize"); 
+          console.log("DB fetch",resDBSize.data);
+          //setting DBstorage
+          //max storage size is 512Mb*1024= 524288KB
+          setMongoDBCapacity((resDBSize.data.storageSize/524288)*100);
+          
+          // setFetchedData(true);
+        // }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    fetchOperations();
+  }, [mongoDBCapacity]);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -29,8 +51,14 @@ export default function NewList() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createList(list, dispatch);
-    history("/lists")
+    if(mongoDBCapacity < 99){
+      createList(list, dispatch);
+      history("/lists")
+    }
+    else{
+      alert('Database Capacity Reached! Please delete movies or lists to upload');
+      window.location.reload();
+    }
   };
 
   return (
