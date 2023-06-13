@@ -14,7 +14,7 @@ export default function Movie() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const [update, setUpdate] = useState(false);
-  // const [imgPerc, setImgPerc] = useState(0);
+  const [loading, setLoading] = useState(false);
   const [uploadCount, setUploadCount] = useState(0);
   const { dispatch } = useContext(MovieContext);
   const [inputs, setInputs] = useState({
@@ -150,6 +150,7 @@ export default function Movie() {
       const updatedMovie = await updateMovie(movie._id, updatedInputs, dispatch);
       setMovie(updatedMovie);
       setUpdate(false);
+      setLoading(false);
       setInputs((prevInputs) => ({
         ...prevInputs,
         imgSm: null,
@@ -233,7 +234,7 @@ export default function Movie() {
 
   const handleUpload = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     //if the storage or upload capacity is above 97%, or if the DB is 99% full stop any uploading
     if(firebaseStorageCapacity < 97 || firebaseUploadCapacity < 97 || mongoDBCapacity < 99){
       try {
@@ -362,7 +363,9 @@ export default function Movie() {
                 onChange={handleFileChange}
               />
             </div>
-            <button className="productButton" onClick={handleUpload}>Update</button>
+            <button className="productButton" onClick={handleUpload}>
+              {loading? <CircularProgress size={24} /> : "Update"}
+            </button>
           </div>
         </form>
       </div>

@@ -77,7 +77,6 @@ export default function NewMovie() {
         // Fetch the movie information using the movie ID
         if(fetchedData===false){
           const res = await makeRequest.get("/dataOperations/find"); // Call the getMovie function with the movie ID and dispatch
-          console.log("Data Operations fetch",res.data);
           res.data.upload? setUploadCount(uploadCount + res.data.upload): setUploadCount(0);
           if (typeof res.data.upload === 'number') {
               setUploadCount(uploadCount + res.data.upload);
@@ -99,7 +98,7 @@ export default function NewMovie() {
   
   const dataOperations= async()=>{
 
-    const res= await makeRequest.post("/dataOperations", {"upload":uploadCount}, {
+    await makeRequest.post("/dataOperations", {"upload":uploadCount}, {
       headers: {
         token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
       },
@@ -108,7 +107,6 @@ export default function NewMovie() {
         alert(error.response.data.message); // display the custom message in an alert box
         console.log("error",error)
     });
-    console.log("Uploaded DATA", res.data);
   }
   
   const reset = () => {
@@ -137,17 +135,13 @@ export default function NewMovie() {
       const storage = getStorage(app);
       const fileName = new Date().getTime() + item.label + item.file.name;
       const storageRef = ref(storage, `/items/${user._id}/${item.label}/${fileName}`);
-      // const uploadTask = storage.ref(`/items/${fileName}`).put(item.file);
-      // incrementUploadCount()
-      console.log("file type:", item.file.type)
-      console.log("item.label:", item.label)
+      
       const uploadTask = uploadBytesResumable(storageRef, item.file);
       uploadTask.on(
         "state_changed",
         (snapshot) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log("Upload is " + progress + "% done");
           setProgress(Math.round(progress));
         },
         (error) => {
@@ -188,7 +182,6 @@ export default function NewMovie() {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    // console.log("movie",movie);>>Delete
     await dataOperations();
     createMovie(movie, dispatch).then(() => { // add a then method here
       reset(); // move the reset function here
