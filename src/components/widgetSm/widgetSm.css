@@ -32,6 +32,7 @@
 }
 .imgContainer{
     width: 20%;
+    margin-right: 0.5em;
 }
 
 .widgetSmListItem{
@@ -45,6 +46,7 @@
     width: 80%;
     display: flex;
     flex-direction: column;
+    margin-left: 0.5em;
 }
 
 .widgetSmUsername{

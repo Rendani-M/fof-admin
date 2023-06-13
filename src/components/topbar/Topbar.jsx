@@ -28,6 +28,10 @@ export default function Topbar() {
     </Box>
   );
 
+  const warning=()=>{
+    alert("There is no functionality programmed on the link or icon you just pressed. Please try a different feature!");
+  }
+
   return (
     <Box className="topbar">
       <Box sx={{ display:{xs:'block', sm:'none'} }}>
@@ -66,17 +70,17 @@ export default function Topbar() {
           </Stack>
         </div>
         <div className="topRight">
-          <div className="topbarIconContainer">
+          <Box sx={{ display:{xs:'none', sm:'block'} }}  onClick={warning} className="topbarIconContainer">
             <NotificationsNone />
             <span className="topIconBadge">2</span>
-          </div>
-          <div className="topbarIconContainer">
+          </Box>
+          <Box sx={{ display:{xs:'none', sm:'block'} }}  onClick={warning} className="topbarIconContainer">
             <Language />
             <span className="topIconBadge">2</span>
-          </div>
-          <div className="topbarIconContainer">
+          </Box>
+          <Box sx={{ display:{xs:'none', sm:'block'} }}  onClick={warning} className="topbarIconContainer">
             <Settings />
-          </div>
+          </Box>
           <img  src={
                 user?.profilePic ||
                 "https://www.nicepng.com/png/detail/202-2024687_profile-icon-for-the-politics-category-profile-icon.png"
