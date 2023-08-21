@@ -8,7 +8,6 @@ import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/
 import app from "../../firebase";
 import { makeRequest } from "../../axios";
 import { useCallback } from "react";
-import { CircularProgress } from "@mui/material";
 
 
 export default function Movie() {
