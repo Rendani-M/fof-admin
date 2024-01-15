@@ -1,5 +1,5 @@
 import "./sidebar.css";
-import { AddToQueue, ArrowCircleLeft, LineStyle, List, PermIdentity, PlayCircleOutline, QueuePlayNext, Report, Paid } from "@mui/icons-material";
+import { AddToQueue, ArrowCircleLeft, LineStyle, List, PermIdentity, PlayCircleOutline, QueuePlayNext, Report, Paid, AddCard } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../context/authContext/apiCalls";
 import { AuthContext } from "../../context/authContext/AuthContext";
@@ -111,8 +111,19 @@ export default function Sidebar() {
                 className={`sidebarListItem ${activeLink === '/contributions' ? 'active' : ''}`}
                 onClick={() => handleLinkClick('/contributions')}
               >
+                <AddCard className="sidebarIcon" />
+                <Typography sx={{ color:'white', fontSize:"small"  }}>Contribution Cards</Typography>
+              </li>
+            </Link>
+            <hr />
+            
+            <Link to="/payment-history" className="link">
+              <li
+                className={`sidebarListItem ${activeLink === '/payment-history' ? 'active' : ''}`}
+                onClick={() => handleLinkClick('/payment-history')}
+              >
                 <Paid className="sidebarIcon" />
-                <Typography sx={{ color:'white', fontSize:"small"  }}>Payments</Typography>
+                <Typography sx={{ color:'white', fontSize:"small"  }}>Payment History</Typography>
               </li>
             </Link>
             <hr />

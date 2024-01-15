@@ -19,6 +19,7 @@ import Events from "./pages/Events/Events";
 import Contact from "./pages/Contact/Contact";
 import User from "./pages/User/User";
 import Payment from "./pages/Payments/Payment";
+import History from "./pages/Payments/History";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -90,6 +91,10 @@ function App() {
         {
           path: "/contributions",
           element: <Payment />,
+        },
+        {
+          path: "/payment-history",
+          element: <History />,
         },
       ],
     },

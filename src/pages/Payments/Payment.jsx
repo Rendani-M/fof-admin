@@ -39,7 +39,7 @@ export default function Payment() {
       return new Promise((resolve, reject) => {
         setUploading(true);
         const storage = getStorage(app);
-        const storageRefVar = storageRef(storage, `/img/Payment/${data.title}`);
+        const storageRefVar = storageRef(storage, `/img/Payment/cards/${data.title}`);
         
         const uploadTask = uploadBytesResumable(storageRefVar, img);
         uploadTask.on(
@@ -75,7 +75,7 @@ export default function Payment() {
         inputData.key = key;
     
         // Set data in Firebase
-        set(databaseRef(db, `admin/Payment/${key}`), inputData)
+        set(databaseRef(db, `admin/Payment/cards/${key}`), inputData)
           .then(() => {
             resolve();
           })
@@ -87,7 +87,7 @@ export default function Payment() {
     }
   
     function firebaseGetAll() {
-      const usersRef = databaseRef(db, 'admin/Payment');
+      const usersRef = databaseRef(db, 'admin/Payment/cards');
       onValue(usersRef, (snapshot) => {
         const dataArray = snapshot.val();
         setDBData(dataArray);
@@ -95,7 +95,7 @@ export default function Payment() {
     }
   
     function firebaseGet(key) {
-      const dataRef = databaseRef(db, `admin/Payment/${key}`);
+      const dataRef = databaseRef(db, `admin/Payment/cards/${key}`);
       onValue(dataRef, (snapshot) => {
         const dataValue = snapshot.val();
         setData(dataValue);
@@ -104,14 +104,14 @@ export default function Payment() {
     }
   
     function firebaseUpdate(inputData) {
-      const usersRef = databaseRef(db, 'admin/Payment');
+      const usersRef = databaseRef(db, 'admin/Payment/cards');
       onValue(usersRef, (snapshot) => {
         const dataArray = snapshot.val();
         let updateOccurred = false; // Use a local variable to track the update status
         for (let obj in dataArray) {
           if (dataArray[obj].title === inputData.title) {
             updateOccurred = true; // Update the local variable
-            set(databaseRef(db, `admin/Payment/${dataArray[obj].key}`), inputData);
+            set(databaseRef(db, `admin/Payment/cards/${dataArray[obj].key}`), inputData);
             break;
           }
         }
@@ -124,7 +124,7 @@ export default function Payment() {
     }  
   
     async function firebaseDelete(key) {
-      const dbRef = databaseRef(db, 'admin/Payment/' + key);
+      const dbRef = databaseRef(db, 'admin/Payment/cards/' + key);
     
       try {
         // Retrieve the data once
@@ -154,7 +154,7 @@ export default function Payment() {
   
     function StorageDelete(data){
       const storage = getStorage(app);
-      const desertRef = storageRef(storage, `/img/Payment/${data.title}`);
+      const desertRef = storageRef(storage, `/img/Payment/cards/${data.title}`);
   
       deleteObject(desertRef).then(() => {
       }).catch((error) => {
@@ -210,7 +210,7 @@ export default function Payment() {
     };
   
     const columns = [
-      { field: "_id", headerName: "ID", width: 50 },
+      { field: "key", headerName: "ID", width: 50 },
       { field: "title", headerName: "title", width: 250 },
       { field: "desc", headerName: "description", width: 250 },
       {
@@ -235,7 +235,7 @@ export default function Payment() {
   
     return (
       <Box className="productList" sx={{ overflowY:'scroll', height:'100vh', p:{xs:'2em 1em', sm:'2em 1em', md:'2em'}, background:'#dfdfdf'}}>
-        <Typography>Payment</Typography>
+        <Typography>Contribution Cards</Typography>
         <Box sx={{ display:'flex', 
                   flexDirection:'column', 
                   gap:'0.5em', 
