@@ -15,7 +15,8 @@ export default function Events() {
   const [data, setData] = useState({
     title: '',
     img: '',
-    desc: ''
+    desc: '',
+    date:''
   });
   const [dbData, setDBData] = useState({});
   const [progress, setProgress] = useState(0);
@@ -203,7 +204,8 @@ export default function Events() {
     setData({
       title: '',
       img: '',
-      desc: ''
+      desc: '',
+      date:''
     });
     setIsEditMode(false);
     setUploading(false);
@@ -213,6 +215,7 @@ export default function Events() {
     { field: "_id", headerName: "ID", width: 50 },
     { field: "title", headerName: "title", width: 250 },
     { field: "desc", headerName: "description", width: 250 },
+    { field: "date", headerName: "date", width: 250 },
     {
       field: "action",
       headerName: "Action",
@@ -283,6 +286,17 @@ export default function Events() {
           name="desc"
           variant="outlined"
           value={data.desc || ''}
+          onChange={handleChange}
+          sx={{ background:'#ededed' }}
+        />
+        <TextField
+          id="outlined-helperText"
+          // label="Date"
+          type="date"
+          defaultValue=""
+          variant="outlined"
+          name="date"
+          value={data.date || ''}
           onChange={handleChange}
           sx={{ background:'#ededed' }}
         />
