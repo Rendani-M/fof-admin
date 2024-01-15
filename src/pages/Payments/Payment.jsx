@@ -222,10 +222,11 @@ export default function Payment() {
             <Box sx={{ display:'flex', justifyContent:'space-around' }}>
               <DeleteOutline
                 className="productListDelete"
-                sx={{ mr:'2em' }}
+                sx={{ mr:'2em', cursor:'pointer' }}
                 onClick={() => handleDelete(params.row.key)}
               />
               <Edit
+                sx={{ cursor:'pointer' }}
                 onClick={() => handleEdit(params.row.key)}/>
             </Box>
           );

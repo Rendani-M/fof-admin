@@ -220,13 +220,14 @@ export default function Service() {
       renderCell: (params) => {
         return (
           <Box sx={{ display:'flex', justifyContent:'space-around' }}>
-            <DeleteOutline
-              className="productListDelete"
-              sx={{ mr:'2em' }}
-              onClick={() => handleDelete(params.row.key)}
-            />
-            <Edit
-              onClick={() => handleEdit(params.row.key)}/>
+              <DeleteOutline
+                className="productListDelete"
+                sx={{ mr:'2em', cursor:'pointer' }}
+                onClick={() => handleDelete(params.row.key)}
+              />
+              <Edit
+                sx={{ cursor:'pointer' }}
+                onClick={() => handleEdit(params.row.key)}/>
           </Box>
         );
       },

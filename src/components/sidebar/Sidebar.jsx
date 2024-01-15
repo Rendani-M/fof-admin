@@ -1,5 +1,5 @@
 import "./sidebar.css";
-import { AddToQueue, ArrowCircleLeft, LineStyle, List, PermIdentity, PlayCircleOutline, QueuePlayNext, Report, Paid, AddCard } from "@mui/icons-material";
+import { AddToQueue, ArrowCircleLeft, LineStyle, List, PermIdentity, PlayCircleOutline, QueuePlayNext, Report, Paid, AddCard, MenuBook } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../context/authContext/apiCalls";
 import { AuthContext } from "../../context/authContext/AuthContext";
@@ -124,6 +124,17 @@ export default function Sidebar() {
               >
                 <Paid className="sidebarIcon" />
                 <Typography sx={{ color:'white', fontSize:"small"  }}>Payment History</Typography>
+              </li>
+            </Link>
+            <hr />
+
+            <Link to="/weekly-scriptures" className="link">
+              <li
+                className={`sidebarListItem ${activeLink === '/lists' ? 'active' : ''}`}
+                onClick={() => handleLinkClick('/weekly-scriptures')}
+              >
+                <MenuBook className="sidebarIcon" />
+                <Typography sx={{ color:'white', fontSize:"small"  }}>Weekly Scriptures</Typography>
               </li>
             </Link>
             <hr />

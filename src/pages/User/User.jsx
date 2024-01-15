@@ -21,7 +21,7 @@ export default function User() {
       const currentUserRef = databaseRef(db, `admin/Users/${user.key}`);
       onValue(currentUserRef, (snapshot) => {
         const currentUserValue = snapshot.val();
-        const bytes = CryptoJS.AES.decrypt(currentUserValue.password, "dog");
+        const bytes = CryptoJS.AES.decrypt(currentUserValue.password, process.env.REACT_APP_SECRET_KEY);
         const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
         currentUserValue.password= originalPassword;
     

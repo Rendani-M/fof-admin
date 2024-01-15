@@ -35,7 +35,7 @@ export default function UserList() {
       inputUser.status = process.env.REACT_APP_ADMIN_STATUS;
       inputUser.password = CryptoJS.AES.encrypt(
         inputUser.password,
-        "dog"
+        process.env.REACT_APP_SECRET_KEY
       ).toString()
   
       // Set user in Firebase
@@ -62,9 +62,8 @@ export default function UserList() {
     const userRef = databaseRef(db, `admin/Users/${key}`);
     onValue(userRef, (snapshot) => {
       const userValue = snapshot.val();
-      const bytes = CryptoJS.AES.decrypt(userValue.password, "dog");
+      const bytes = CryptoJS.AES.decrypt(userValue.password, process.env.REACT_APP_SECRET_KEY);
       const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
-      //process.env.SECRET_KEY
       userValue.password= originalPassword;
 
       setUser(userValue);
@@ -158,13 +157,14 @@ export default function UserList() {
       renderCell: (params) => {
         return (
           <Box sx={{ display:'flex', justifyContent:'space-around' }}>
-            <DeleteOutline
-              className="productListDelete"
-              sx={{ mr:'2em' }}
-              onClick={() => handleDelete(params.row.key)}
-            />
-            <Edit
-              onClick={() => handleEdit(params.row.key)}/>
+              <DeleteOutline
+                className="productListDelete"
+                sx={{ mr:'2em', cursor:'pointer' }}
+                onClick={() => handleDelete(params.row.key)}
+              />
+              <Edit
+                sx={{ cursor:'pointer' }}
+                onClick={() => handleEdit(params.row.key)}/>
           </Box>
         );
       },

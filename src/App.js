@@ -20,6 +20,7 @@ import Contact from "./pages/Contact/Contact";
 import User from "./pages/User/User";
 import Payment from "./pages/Payments/Payment";
 import History from "./pages/Payments/History";
+import Readings from "./pages/Readings/Readings";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -95,6 +96,10 @@ function App() {
         {
           path: "/payment-history",
           element: <History />,
+        },
+        {
+          path: "/weekly-scriptures",
+          element: <Readings />,
         },
       ],
     },
