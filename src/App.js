@@ -18,6 +18,7 @@ import Videos from "./pages/Videos/Videos";
 import Events from "./pages/Events/Events";
 import Contact from "./pages/Contact/Contact";
 import User from "./pages/User/User";
+import Payment from "./pages/Payments/Payment";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -85,6 +86,10 @@ function App() {
         {
           path: "/contact",
           element: <Contact />,
+        },
+        {
+          path: "/contributions",
+          element: <Payment />,
         },
       ],
     },

@@ -1,6 +1,6 @@
 import "./events.css";
 import { DataGrid } from "@mui/x-data-grid";
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { DeleteOutline, Edit } from "@mui/icons-material";
 import { Box, Button, LinearProgress, TextField, Typography } from "@mui/material";
 import { ref as storageRef, getDownloadURL, getStorage, uploadBytesResumable, deleteObject } from "firebase/storage";

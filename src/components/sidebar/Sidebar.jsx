@@ -1,5 +1,5 @@
 import "./sidebar.css";
-import { AddToQueue, ArrowCircleLeft, LineStyle, List, PermIdentity, PlayCircleOutline, QueuePlayNext, Report } from "@mui/icons-material";
+import { AddToQueue, ArrowCircleLeft, LineStyle, List, PermIdentity, PlayCircleOutline, QueuePlayNext, Report, Paid } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../context/authContext/apiCalls";
 import { AuthContext } from "../../context/authContext/AuthContext";
@@ -102,6 +102,17 @@ export default function Sidebar() {
               >
                 <QueuePlayNext className="sidebarIcon" />
                 <Typography sx={{ color:'white', fontSize:"small"  }}>Contact</Typography>
+              </li>
+            </Link>
+            <hr />
+            
+            <Link to="/contributions" className="link">
+              <li
+                className={`sidebarListItem ${activeLink === '/contributions' ? 'active' : ''}`}
+                onClick={() => handleLinkClick('/contributions')}
+              >
+                <Paid className="sidebarIcon" />
+                <Typography sx={{ color:'white', fontSize:"small"  }}>Payments</Typography>
               </li>
             </Link>
             <hr />
