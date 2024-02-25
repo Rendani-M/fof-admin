@@ -35,10 +35,12 @@ function firebaseGet(user, dispatch) {
 
     for(let dbUserkey in dataArray){
       let dbUser= dataArray[dbUserkey];
-      const bytes = CryptoJS.AES.decrypt(dbUser.password, "dog");
-      const originalPassword = bytes.toString(CryptoJS.enc.Utf8); 
-
-      if(user.name === dbUser.name && user.password === originalPassword){
+      // const bytes = CryptoJS.AES.decrypt(dbUser.password, "dog");
+      // const originalPassword = bytes.toString(CryptoJS.enc.Utf8); 
+      try {
+        const bytes = CryptoJS.AES.decrypt(dbUser.password, "dog");
+        const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
+        if(user.name === dbUser.name && user.password === originalPassword){
         userData = {
           name: dbUser.name,
           surname: dbUser.surname,
@@ -48,9 +50,12 @@ function firebaseGet(user, dispatch) {
         isLoginSuccess= true;
         console.log("found it", isLoginSuccess);
       }
+      } catch (error) {
+        console.error("Decryption error:", error);
+      }
     }
 
-    console.log("isLoginSuccess", isLoginSuccess)
+    // console.log("isLoginSuccess", isLoginSuccess)
     if(isLoginSuccess){ 
       dispatch(loginSuccess(userData))
     } 
