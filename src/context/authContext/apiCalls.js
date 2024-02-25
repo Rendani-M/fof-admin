@@ -38,7 +38,7 @@ function firebaseGet(user, dispatch) {
       // const bytes = CryptoJS.AES.decrypt(dbUser.password, "dog");
       // const originalPassword = bytes.toString(CryptoJS.enc.Utf8); 
       try {
-        const bytes = CryptoJS.AES.decrypt(dbUser.password, "dog");
+        const bytes = CryptoJS.AES.decrypt(dbUser.password, process.env.REACT_APP_SECRET_KEY);
         const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
         if(user.name === dbUser.name && user.password === originalPassword){
         userData = {
