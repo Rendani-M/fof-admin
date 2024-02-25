@@ -5,7 +5,8 @@ import {  useEffect, useState } from "react";
 import { Edit } from "@mui/icons-material";
 import { Box, Button, LinearProgress, TextField, Typography } from "@mui/material";
 import { ref as storageRef, getDownloadURL, getStorage, uploadBytesResumable, deleteObject } from "firebase/storage";
-import { ref as databaseRef, get, onValue, remove, set } from "firebase/database";
+// import { ref as databaseRef, get, onValue, remove, set } from "firebase/database";
+import { ref as databaseRef, onValue, set } from "firebase/database";
 import { app, db } from "../../firebase.";
 
 export default function About() {
@@ -153,15 +154,15 @@ export default function About() {
   //   }
   // }
 
-  function StorageDelete(data){
-    const storage = getStorage(app);
-    const desertRef = storageRef(storage, `/img/About/${data.title}`);
+  // function StorageDelete(data){
+  //   const storage = getStorage(app);
+  //   const desertRef = storageRef(storage, `/img/About/${data.title}`);
 
-    deleteObject(desertRef).then(() => {
-    }).catch((error) => {
-      console.log(error);
-    });
-  }
+  //   deleteObject(desertRef).then(() => {
+  //   }).catch((error) => {
+  //     console.log(error);
+  //   });
+  // }
 
   function handleEdit(key){
     firebaseGet(key);
