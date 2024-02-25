@@ -1,7 +1,8 @@
 import "./about.css";
 import { DataGrid } from "@mui/x-data-grid";
 import {  useEffect, useState } from "react";
-import { DeleteOutline, Edit } from "@mui/icons-material";
+// import { DeleteOutline, Edit } from "@mui/icons-material";
+import { Edit } from "@mui/icons-material";
 import { Box, Button, LinearProgress, TextField, Typography } from "@mui/material";
 import { ref as storageRef, getDownloadURL, getStorage, uploadBytesResumable, deleteObject } from "firebase/storage";
 import { ref as databaseRef, get, onValue, remove, set } from "firebase/database";
@@ -123,34 +124,34 @@ export default function About() {
     });
   }  
 
-  async function firebaseDelete(key) {
-    const dbRef = databaseRef(db, 'admin/About/' + key);
+  // async function firebaseDelete(key) {
+  //   const dbRef = databaseRef(db, 'admin/About/' + key);
   
-    try {
-      // Retrieve the data once
-      const snapshot = await get(dbRef);
-      if (snapshot.exists()) {
-        const data = snapshot.val();
-        setData(data); 
+  //   try {
+  //     // Retrieve the data once
+  //     const snapshot = await get(dbRef);
+  //     if (snapshot.exists()) {
+  //       const data = snapshot.val();
+  //       setData(data); 
   
-        // Remove the object
-        await remove(dbRef)
-        .then(() => {
-          if(data.img){
-            return StorageDelete(data)
-          }
-        })
-        .catch((error) => {
-          console.error("Error during upload:", error);
-        });
+  //       // Remove the object
+  //       await remove(dbRef)
+  //       .then(() => {
+  //         if(data.img){
+  //           return StorageDelete(data)
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error during upload:", error);
+  //       });
 
-      } else {
-        console.log("No data found at the specified reference.");
-      }
-    } catch (error) {
-      console.log("Operation failed: " + error.message);
-    }
-  }
+  //     } else {
+  //       console.log("No data found at the specified reference.");
+  //     }
+  //   } catch (error) {
+  //     console.log("Operation failed: " + error.message);
+  //   }
+  // }
 
   function StorageDelete(data){
     const storage = getStorage(app);
@@ -167,9 +168,9 @@ export default function About() {
     setIsEditMode(true);
   }
 
-  const handleDelete = (key) => {
-    firebaseDelete(key);
-  };
+  // const handleDelete = (key) => {
+  //   firebaseDelete(key);
+  // };
 
   const submit = async () => {
     try {
